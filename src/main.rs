@@ -6,6 +6,18 @@ use std::path::Path;
 use clap::{Arg, App};
 use image::GenericImage;
 
+fn rgb_comp<F>(a: &[u8], b: &[u8], cfunc: F) -> bool 
+    where F: Fn(&u8, &u8) -> bool {
+    // comparision function; takes two u8 slices and compares their values element wise
+    // before performing an all fold
+    let mut v_bool = Vec::new();
+    for (i,j) in a.iter().zip(b.iter()) {
+        v_bool.push( cfunc(i,j) );
+    }
+    v_bool.iter().fold(true, |x, y| x & y)
+}
+
+
 fn main() {
     // setup clap argument parser
     let matches = App::new("rusty-transparent")
@@ -37,8 +49,7 @@ fn main() {
     
     // iterate through the pixels of the image
     for pixel in imgbuf.pixels_mut() {
-        
-        if &pixel.data[0..3] == &rgb[..] {
+        if rgb_comp(&pixel.data[0..3], &rgb[..], |x,y| x == y) {
             pixel[3] = 0;
         }
     }
