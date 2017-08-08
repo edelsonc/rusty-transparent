@@ -1,0 +1,8 @@
+[package]
+name = "rusty-transparent"
+version = "0.1.0"
+authors = ["edelsonc <charles.edelson12@ncf.edu>"]
+
+[dependencies]
+image = "*"
+clap = "*"
