@@ -4,8 +4,6 @@ extern crate clap;
 use std::fs::File;
 use std::path::Path;
 use clap::{Arg, App};
-
-
 use image::GenericImage;
 
 fn main() {
@@ -29,9 +27,6 @@ fn main() {
     
     let rgb: Vec<u8> = rgb_arg.iter().map(|s| s.parse::<u8>().unwrap()).collect();
     
-//    for c in rgb {
-//        println!("{}", c);
-//    }
     // open image as a new dynamic image object
     let img = match image::open(&Path::new(image_name)) {
         Ok(p) => p,
@@ -47,14 +42,8 @@ fn main() {
             pixel[3] = 0;
         }
     }
-    
-//    for pixel in img.to_rgba().pixels() {
-//        if pixel[3] == 0 {
-//            println!("{:?}", pixel)
-//        }
-//    }
-    
-    let mut fout = File::create(&Path::new("test.png")).unwrap();
 
+    // create and save to external file
+    let mut fout = File::create(&Path::new("test.png")).unwrap();
     let _ = image::ImageRgba8(imgbuf).save(&mut fout, image::PNG);
 }
