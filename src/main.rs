@@ -4,7 +4,6 @@ extern crate clap;
 use std::fs::File;
 use std::path::Path;
 use clap::{Arg, App};
-use image::GenericImage;
 
 fn rgb_comp<F>(a: &[u8], b: &[u8], cfunc: F) -> bool 
     where F: Fn(&u8, &u8) -> bool {
